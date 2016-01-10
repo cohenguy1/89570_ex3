@@ -1,12 +1,24 @@
 
 public class Point 
 {
-	public int X;
-	public int Y;
+	public double X;
+	public double Y;
 
-	public Point(int x, int y) 
+	private int _clusterIndex;
+	
+	public Point(double x, double y) 
 	{
 		X = x;
 		Y = y;
+	}
+	
+	public void SetCluster(int clusterIndex)
+	{
+		_clusterIndex = clusterIndex;
+	}
+
+	public int GetClusterIndex() 
+	{
+		return _clusterIndex;
 	}
 }

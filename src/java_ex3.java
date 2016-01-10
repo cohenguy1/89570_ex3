@@ -12,7 +12,7 @@ public class java_ex3
 			FileHandler fileHandler = new FileHandler();
 			PointsPack pointsPack = fileHandler.ParseFile(inputFilePath);
 			
-			ClusterArranger clusterArranger = new ClusterArranger();
+			ClusterArranger clusterArranger = new ClusterArranger(pointsPack.DistanceMethod);
 			clusterArranger.ArrangeClusters(pointsPack);
 			
 			String outputFilePath = "output.txt";

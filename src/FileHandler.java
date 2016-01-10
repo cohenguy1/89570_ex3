@@ -98,58 +98,18 @@ public class FileHandler
 		BufferedWriter writer = new BufferedWriter(fileWriter);
 		
 		boolean firstLine = true;
-		/*
-		for (int row = 0; row < map.Size; row++)
+		
+		for (Point point : pointsPack.Points)
 		{
-			for (int column = 0; column < map.Size; column++)
+			if (!firstLine)
 			{
-				// No policy exists in W and G locations
-				if (map.Map[row][column] != 'W' && map.Map[row][column] != 'G')
-				{
-					if (!firstLine)
-					{
-						writer.newLine();
-					}
-					
-					WritePolicyForLocation(writer, row, column, policy);
-					firstLine = false;
-				}
+				writer.newLine();
 			}
-		}
-		*/
-		writer.close();
-	}
-	
-	/*
-	private void WritePolicyForLocation(BufferedWriter writer, int row, int column, Policy policy) throws IOException 
-	{
-		writer.write(row + "," + column + "," + GetStepString(policy.Action[row][column]));
-	}
-
-	private String GetStepString(StepDirection step)
-	{
-		switch (step)
-		{
-		case R:
-			return "R";
-		case RD:
-			return "RD";
-		case D:
-			return "D";
-		case LD:
-			return "LD";
-		case L:
-			return "L";
-		case LU:
-			return "LU";
-		case U:
-			return "U";
-		case RU:
-			return "RU";
-		case NotAvailable:
-			return "";
+			
+			writer.write(String.valueOf(point.GetClusterIndex()));
+			firstLine = false;
 		}
 		
-		return "";
-	}*/
+		writer.close();
+	}
 }
