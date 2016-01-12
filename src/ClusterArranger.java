@@ -19,6 +19,25 @@ public class ClusterArranger
 
 			MergeClusters(clustersToMerge, clusters);
 		}
+		
+		SetClustersIndices(pointsPack, clusters);
+	}
+
+	private void SetClustersIndices(PointsPack pointsPack, List<Cluster> clusters) 
+	{
+		int clusterIndex = 1;
+		
+		for (Point point : pointsPack.Points)
+		{
+			Cluster pointCluster = point.GetCluster(); 
+			
+			if (pointCluster.ClusterIndex == -1)
+			{
+				pointCluster.SetClusterIndex(clusterIndex);
+				
+				clusterIndex++;
+			}
+		}
 	}
 
 	private void MergeClusters(List<Cluster> clustersToMerge, List<Cluster> clusters) 
@@ -30,7 +49,7 @@ public class ClusterArranger
 		{
 			clusterToMerge.AddPoint(point);
 			
-			point.SetCluster(clusterToMerge.ClusterIndex);
+			point.SetCluster(clusterToMerge);
 		}
 
 		// remove empty cluster
@@ -71,48 +90,9 @@ public class ClusterArranger
 		Cluster clusterI = clusters.get(i);
 		Cluster clusterJ = clusters.get(j);
 
-		return GetDistanceBetweenClusters(clusterI, clusterJ);
+		return Cluster.GetDistanceBetweenClusters(clusterI, clusterJ, DistanceCalculationMethod);
 	}
 
-	private double GetDistanceBetweenClusters(Cluster clusterI, Cluster clusterJ) 
-	{
-		if (DistanceCalculationMethod == DistanceCalculationMethod.SingleLink)
-		{
-			return CalcSingleLinkDistance(clusterI, clusterJ);
-		}
-		else 
-		{
-			return 0;
-			//return CalcAverageLinkDistance(clusterI, clusterJ);
-		}
-	}
-
-	private double CalcSingleLinkDistance(Cluster clusterI, Cluster clusterJ) 
-	{
-		double minDistance = CalculatePointsDistance(clusterI.Points.get(0), clusterJ.Points.get(0));
-		double distance;
-
-		for (Point pointI : clusterI.Points)
-		{
-			for (Point pointJ : clusterJ.Points)
-			{
-				distance = CalculatePointsDistance(pointI, pointJ);
-
-				if (distance < minDistance)
-				{
-					minDistance = distance;
-				}
-			}
-		}
-
-		return minDistance;
-	}
-
-	private double CalculatePointsDistance(Point point1, Point point2)
-	{
-		return Math.sqrt((point1.X - point2.X)*(point1.X - point2.X) + (point1.Y - point2.Y)*(point1.Y - point2.Y)); 
-	}
-	
 	private List<Cluster> CreateClustersAndAddPoints(List<Point> points)
 	{
 		List<Cluster> clusters = new ArrayList<Cluster>();
@@ -123,7 +103,7 @@ public class ClusterArranger
 
 			newCluster.AddPoint(point);
 			
-			point.SetCluster(newCluster.ClusterIndex);
+			point.SetCluster(newCluster);
 			
 			clusters.add(newCluster);
 		}

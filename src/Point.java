@@ -4,7 +4,7 @@ public class Point
 	public double X;
 	public double Y;
 
-	private int _clusterIndex;
+	private Cluster _cluster;
 	
 	public Point(double x, double y) 
 	{
@@ -12,13 +12,13 @@ public class Point
 		Y = y;
 	}
 	
-	public void SetCluster(int clusterIndex)
+	public void SetCluster(Cluster cluster)
 	{
-		_clusterIndex = clusterIndex;
+		_cluster = cluster;
 	}
 
-	public int GetClusterIndex() 
+	public Cluster GetCluster() 
 	{
-		return _clusterIndex;
+		return _cluster;
 	}
 }

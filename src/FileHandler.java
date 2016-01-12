@@ -74,8 +74,8 @@ public class FileHandler
 			// read each character in the line
 			String[] numbers = line.split(",");
 			
-			int x = Integer.parseInt(numbers[0]);
-			int y = Integer.parseInt(numbers[1]);
+			double x = Double.parseDouble(numbers[0]);
+			double y = Double.parseDouble(numbers[1]);
 			
 			Point newPoint = new Point(x, y);
 			
@@ -106,7 +106,7 @@ public class FileHandler
 				writer.newLine();
 			}
 			
-			writer.write(String.valueOf(point.GetClusterIndex()));
+			writer.write(String.valueOf(point.GetCluster().ClusterIndex));
 			firstLine = false;
 		}
 		
