@@ -1,5 +1,8 @@
 import java.util.*;
 
+/*
+ * Holds the input file data
+ */
 public class PointsPack 
 {
 	public List<Point> Points;

@@ -13,14 +13,14 @@ public class Cluster
 		ClusterIndex = -1;
 	}
 
+	/*
+	 * Add point to cluster
+	 */
 	public void AddPoint(Point point) 
 	{
 		Points.add(point);
-	}
-
-	public void RemovePoint(Point point) 
-	{
-		Points.remove(point);
+		
+		point.SetCluster(this);
 	}
 
 	public void SetClusterIndex(int clusterIndex) 
@@ -40,6 +40,10 @@ public class Cluster
 		}
 	}
 
+	/*
+	 * Calculate the Average Link Distance: the average distance between 
+	 * each pair of elements from the two clusters
+	 */
 	private static double CalcAverageLinkDistance(Cluster clusterI, Cluster clusterJ) 
 	{
 		int pairsCount = 0;
@@ -62,6 +66,10 @@ public class Cluster
 		return averageDistance/pairsCount;
 	}
 
+	/*
+	 * Calculates the Single Link Distance: the shortest distance between 
+	 * a pair of elements from the two clusters
+	 */
 	private static double CalcSingleLinkDistance(Cluster clusterI, Cluster clusterJ) 
 	{
 		double minDistance = CalculatePointsDistance(clusterI.Points.get(0), clusterJ.Points.get(0));
@@ -83,6 +91,9 @@ public class Cluster
 		return minDistance;
 	}
 	
+	/*
+	 * Geometric distance between two points
+	 */
 	private static double CalculatePointsDistance(Point point1, Point point2)
 	{
 		return Math.sqrt((point1.X - point2.X)*(point1.X - point2.X) + (point1.Y - point2.Y)*(point1.Y - point2.Y)); 

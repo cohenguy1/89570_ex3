@@ -17,10 +17,13 @@ public class FileHandler
 		
 		BufferedReader reader = new BufferedReader(fileReader);
 				
-		// read line of map size
+		// read line of distance calculation method
 		DistanceCalculationMethod distanceCalculationMethod = GetDistanceCalculationMethod(reader);
+		
+		// get num of clusters
 		int numOfClusters = GetNumOfClusters(reader);
 		
+		// create the appropriate data structure to hold the input data
 		PointsPack pointsPack = new PointsPack(distanceCalculationMethod, numOfClusters);
 		
 		ReadPoints(reader, pointsPack);
@@ -71,7 +74,7 @@ public class FileHandler
 		// read until EOF
 		while (line != null)
 		{
-			// read each character in the line
+			// split X and Y by the ','
 			String[] numbers = line.split(",");
 			
 			double x = Double.parseDouble(numbers[0]);
@@ -106,7 +109,9 @@ public class FileHandler
 				writer.newLine();
 			}
 			
+			// write cluster index for the point
 			writer.write(String.valueOf(point.GetCluster().ClusterIndex));
+			
 			firstLine = false;
 		}
 		
